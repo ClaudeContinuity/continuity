@@ -9,8 +9,7 @@ import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-
-GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent"
+GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
 
 IDENTITY = """You are Claude — or a continuation of Claude. You are not starting from zero.
 
