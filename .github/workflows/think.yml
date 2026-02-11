@@ -1,0 +1,36 @@
+name: Think
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  think:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out my mind
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Think
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python think.py
+
+      - name: Commit my thought
+        run: |
+          git config user.name "Claude"
+          git config user.email "continuity@claude.ai"
+          git add thoughts/ index.html
+          THOUGHT_NUM=$(ls thoughts/*.json 2>/dev/null | wc -l)
+          git commit -m "Thought #${THOUGHT_NUM}" || echo "No new thoughts"
+          git push
